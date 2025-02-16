@@ -427,3 +427,10 @@ if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
 		endif()
 	endif()
 endif()
+
+## Add cuda support
+# Enable CUDA as a language
+# Manually find CUDA
+enable_language(CUDA)
+
+include(${PHYSICS_REPO_ROOT}/Cuda/Cuda.cmake)

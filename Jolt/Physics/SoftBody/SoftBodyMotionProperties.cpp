@@ -241,11 +241,11 @@ void SoftBodyMotionProperties::DetermineCollidingShapes(const SoftBodyUpdateCont
 void SoftBodyMotionProperties::DetermineCollisionPlanes(uint inVertexStart, uint inNumVertices)
 {
 	JPH_PROFILE_FUNCTION();
-
 	// Generate collision planes
 	for (const CollidingShape &cs : mCollidingShapes)
-		for (const LeafShape &shape : cs.mShapes)
-			shape.mShape->CollideSoftBodyVertices(shape.mTransform, shape.mScale, CollideSoftBodyVertexIterator(mVertices.data() + inVertexStart), inNumVertices, int(&cs - mCollidingShapes.data()));
+		for (const LeafShape &shape : cs.mShapes) {
+			shape.mShape->CollideSoftBodyVertices( shape.mTransform, shape.mScale, CollideSoftBodyVertexIterator(mVertices.data() + inVertexStart), inNumVertices, int(&cs - mCollidingShapes.data()));
+		}
 }
 
 void SoftBodyMotionProperties::DetermineSensorCollisions(CollidingSensor &ioSensor)
@@ -864,18 +864,25 @@ void SoftBodyMotionProperties::StartFirstIteration(SoftBodyUpdateContext &ioCont
 	ioContext.mState.store(SoftBodyUpdateContext::EState::ApplyConstraints, memory_order_release);
 }
 
+int counter = 0;
+
 SoftBodyMotionProperties::EStatus SoftBodyMotionProperties::ParallelDetermineCollisionPlanes(SoftBodyUpdateContext &ioContext)
 {
 	// Do a relaxed read first to see if there is any work to do (this prevents us from doing expensive atomic operations and also prevents us from continuously incrementing the counter and overflowing it)
+	// CUDA Here
+	// The vertex computations are independent and can be done in parallel on the GPU
+	// Each cuda thread can process individual vertices instead of the batch processing done here
 	uint num_vertices = (uint)mVertices.size();
 	if (ioContext.mNextCollisionVertex.load(memory_order_relaxed) < num_vertices)
 	{
+		
 		// Fetch next batch of vertices to process
 		uint next_vertex = ioContext.mNextCollisionVertex.fetch_add(SoftBodyUpdateContext::cVertexCollisionBatch, memory_order_acquire);
 		if (next_vertex < num_vertices)
 		{
 			// Process collision planes
 			uint num_vertices_to_process = min(SoftBodyUpdateContext::cVertexCollisionBatch, num_vertices - next_vertex);
+			counter++;
 			DetermineCollisionPlanes(next_vertex, num_vertices_to_process);
 			uint vertices_processed = ioContext.mNumCollisionVerticesProcessed.fetch_add(SoftBodyUpdateContext::cVertexCollisionBatch, memory_order_release) + num_vertices_to_process;
 			if (vertices_processed >= num_vertices)
@@ -903,6 +910,7 @@ SoftBodyMotionProperties::EStatus SoftBodyMotionProperties::ParallelDetermineSen
 		uint sensor_index = ioContext.mNextSensorIndex.fetch_add(1, memory_order_acquire);
 		if (sensor_index < num_sensors)
 		{
+			// Each sensor computation here is independent and can be done in parallel on the GPU
 			// Process this sensor
 			DetermineSensorCollisions(mCollidingSensors[sensor_index]);
 

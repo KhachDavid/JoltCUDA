@@ -225,8 +225,35 @@ void BoxShape::CollidePoint(Vec3Arg inPoint, const SubShapeIDCreator &inSubShape
 		ioCollector.AddHit({ TransformedShape::sGetBodyID(ioCollector.GetContext()), inSubShapeIDCreator.GetID() });
 }
 
+void PrintMat44(const JPH::Mat44 &mat) {
+    // JPH::Mat44 is stored column-major, so we extract by columns
+    for (int row = 0; row < 4; row++) {
+        for (int col = 0; col < 4; col++) {
+            printf("%f ", mat(row, col));  // Direct access using operator()(row, col)
+        }
+        printf("\n");  // Newline for formatting
+    }
+}
+
+int MatrixCounter = 0;
 void BoxShape::CollideSoftBodyVertices(Mat44Arg inCenterOfMassTransform, Vec3Arg inScale, const CollideSoftBodyVertexIterator &inVertices, uint inNumVertices, int inCollidingShapeIndex) const
 {
+	// Print the inCenterOfMassTransform and what 
+	//printf("MatrixCounter: %d\n", MatrixCounter);
+	//Mat44 mat = inCenterOfMassTransform.ToMat44();
+
+	//printf("Mat44Arg has size:" + sizeof(typeof(Mat44)));
+	//printf("Vec3Arg has size:" + sizeof(typeof(Vec3)));
+	//printf("Vec3Arg has size:" + sizeof(typeof(Collide SoftBodyVertexIterator))); // per soft body
+	//printf("Vec3Arg has size:" + sizeof(typeof(uint)));
+	//printf("Vec3Arg has size:" + sizeof(typeof(int)));
+	//sizeof(typeof(Mat44));
+
+	
+
+	//printf("Matrix contents:\n");
+	//PrintMat44(mat);  // Print the matrix
+	MatrixCounter++;
 	Mat44 inverse_transform = inCenterOfMassTransform.InversedRotationTranslation();
 	Vec3 half_extent = inScale.Abs() * mHalfExtent;
 
