@@ -8,6 +8,19 @@ set(JOLT_VIEWER_SRC_FILES
 	${JOLT_VIEWER_ROOT}/JoltViewer.h
 )
 
+
+# Ensure CUDA support
+enable_language(CUDA)
+set(JOLT_PHYSICS_ROOT ${PHYSICS_REPO_ROOT}/Jolt)
+
+
+set(JOLT_PHYSICS_CUDA_FILES
+    ${JOLT_PHYSICS_ROOT}/Cuda/Hello.cu
+	${JOLT_PHYSICS_ROOT}/Cuda/Hello.h
+)
+
+
+
 # Group source files
 source_group(TREE ${JOLT_VIEWER_ROOT} FILES ${JOLT_VIEWER_SRC_FILES})
 
@@ -28,3 +41,7 @@ target_link_libraries(JoltViewer LINK_PUBLIC TestFramework)
 
 # Set the correct working directory
 set_property(TARGET JoltViewer PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${PHYSICS_REPO_ROOT}")
+
+
+set_target_properties(JoltViewer PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+target_link_libraries(JoltViewer PRIVATE cuda cudart)

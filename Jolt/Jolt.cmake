@@ -3,8 +3,17 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+
+# Ensure CUDA support
+enable_language(CUDA)
+
 # Root
 set(JOLT_PHYSICS_ROOT ${PHYSICS_REPO_ROOT}/Jolt)
+
+set(JOLT_PHYSICS_CUDA_FILES
+    ${JOLT_PHYSICS_ROOT}/Cuda/Hello.cu
+	${JOLT_PHYSICS_ROOT}/Cuda/Hello.h
+)
 
 # Source files
 set(JOLT_PHYSICS_SRC_FILES
@@ -476,7 +485,7 @@ endif()
 source_group(TREE ${JOLT_PHYSICS_ROOT} FILES ${JOLT_PHYSICS_SRC_FILES})
 
 # Create Jolt lib
-add_library(Jolt ${JOLT_PHYSICS_SRC_FILES})
+add_library(Jolt ${JOLT_PHYSICS_SRC_FILES} ${JOLT_PHYSICS_CUDA_FILES})
 add_library(Jolt::Jolt ALIAS Jolt)
 
 if (BUILD_SHARED_LIBS)
@@ -702,3 +711,7 @@ if (EMSCRIPTEN)
 	# Also disable warning: running limited binaryen optimizations because DWARF info requested (or indirectly required)
 	target_link_options(Jolt PUBLIC -sSTACK_SIZE=1048576 -sINITIAL_MEMORY=134217728 -Wno-limited-postlink-optimizations)
 endif()
+
+
+#set_target_properties(Jolt PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+target_link_libraries(Jolt PRIVATE cuda cudart)

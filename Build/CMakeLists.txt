@@ -301,6 +301,10 @@ if (XCODE)
 	set_property(TARGET Jolt PROPERTY XCODE_ATTRIBUTE_OTHER_CPLUSPLUSFLAGS[arch=x86_64] "$(inherited) -msse4.2 -mpopcnt")
 endif()
 
+enable_language(CUDA)
+include(${PHYSICS_REPO_ROOT}/Cuda/Cuda.cmake)	
+
+
 # Install Jolt library and includes
 if (ENABLE_INSTALL)
 	include(GNUInstallDirs)
@@ -318,6 +322,7 @@ if (ENABLE_INSTALL)
 			install(FILES ${SRC_FILE} DESTINATION ${DST_FILE})
 		endif()
 	endforeach()
+
 
 	# Export Jolt library
 	export(TARGETS Jolt
@@ -419,11 +424,11 @@ if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
 			endif()
 		endif()
 		if (TARGET_VIEWER)
-			if (TEST_FRAMEWORK_AVAILABLE)
-				include(${PHYSICS_REPO_ROOT}/JoltViewer/JoltViewer.cmake)
-			else()
-				message("Cannot build JoltViewer because Vulkan/DirectX SDK is not available!")
-			endif()
+			#if (TEST_FRAMEWORK_AVAILABLE)
+			#	include(${PHYSICS_REPO_ROOT}/JoltViewer/JoltViewer.cmake)
+			##else()
+			#	message("Cannot build JoltViewer because Vulkan/DirectX SDK is not available!")
+			#endif()
 		endif()
 	endif()
 endif()
@@ -431,6 +436,3 @@ endif()
 ## Add cuda support
 # Enable CUDA as a language
 # Manually find CUDA
-enable_language(CUDA)
-
-include(${PHYSICS_REPO_ROOT}/Cuda/Cuda.cmake)

@@ -10,7 +10,7 @@ fi
 
 if [ -z $1 ]
 then
-	COMPILER=clang++
+	COMPILER=g++
 else
 	COMPILER=$1
 	shift

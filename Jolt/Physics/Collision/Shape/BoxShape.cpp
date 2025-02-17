@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MIT
 
 #include <Jolt/Jolt.h>
-
+#include <Cuda/Hello.h>
 #include <Jolt/Physics/Collision/Shape/BoxShape.h>
 #include <Jolt/Physics/Collision/Shape/ScaleHelpers.h>
 #include <Jolt/Physics/Collision/Shape/GetTrianglesContext.h>
@@ -248,8 +248,10 @@ void BoxShape::CollideSoftBodyVertices(Mat44Arg inCenterOfMassTransform, Vec3Arg
 	//printf("Vec3Arg has size:" + sizeof(typeof(uint)));
 	//printf("Vec3Arg has size:" + sizeof(typeof(int)));
 	//sizeof(typeof(Mat44));
+	printf("Launch Kernel\n");
+    LaunchHelloKernel();   // Invoke CUDA kernel
+	printf("Kernel Launched\n");
 
-	
 
 	//printf("Matrix contents:\n");
 	//PrintMat44(mat);  // Print the matrix
