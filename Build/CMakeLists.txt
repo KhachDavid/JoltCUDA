@@ -302,7 +302,6 @@ if (XCODE)
 endif()
 
 enable_language(CUDA)
-include(${PHYSICS_REPO_ROOT}/Cuda/Cuda.cmake)	
 
 
 # Install Jolt library and includes

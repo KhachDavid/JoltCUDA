@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MIT
 
 #include <Jolt/Jolt.h>
-#include <Cuda/Hello.h>
+#include <Jolt/Cuda/Hello.h>
 #include <Jolt/Physics/Collision/Shape/BoxShape.h>
 #include <Jolt/Physics/Collision/Shape/ScaleHelpers.h>
 #include <Jolt/Physics/Collision/Shape/GetTrianglesContext.h>
