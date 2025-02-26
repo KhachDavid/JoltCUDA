@@ -90,7 +90,7 @@ __global__ void CollideSoftBodyVerticesKernelCUDA(
                 d_largestPenetration[i] = penetration;
                 float3 norm = (norm_length > 0.f) ? diff / norm_length : make_float3(0.f,0.f,0.f);
                 d_collisionPlane[i] = norm;
-                d_collidingShapeIndex[i] = collidingShapeIndex;
+            d_collidingShapeIndex[i] = collidingShapeIndex;
             }
         }
     }

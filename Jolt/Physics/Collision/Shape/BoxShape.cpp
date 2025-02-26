@@ -249,26 +249,6 @@ void BoxShape::CollideSoftBodyVertices(Mat44Arg inCenterOfMassTransform,
     Vec3 half_extent = inScale.Abs() * mHalfExtent;
     printf("Half extent computed: (%f, %f, %f)\n", half_extent.GetX(), half_extent.GetY(), half_extent.GetZ());
     
-    // Print out a few vertices for verification.
-    if (inNumVertices == 0)
-    {
-        printf("No vertices!\n");
-        return;
-    }
-
-	for (CollideSoftBodyVertexIterator v = inVertices, end = inVertices + inNumVertices; v != end; ++v)
-	{
-		Vec3 pos = v.GetPosition();
-		printf("Vertex position: (%f, %f, %f)\n", pos.GetX(), pos.GetY(), pos.GetZ());
-	}
-    
-	for (uint i = 0; i < std::min((unsigned)5, inNumVertices); ++i)
-	{
-	    const auto &vertex = inVertices[i];
-	    Vec3 pos = vertex.GetPosition();
-	    printf("Vertex %u: pos=(%f, %f, %f)\n", i, pos.GetX(), pos.GetY(), pos.GetZ());
-	}
-    
     // Prepare host arrays for vertex data.
     std::vector<float3> positions(inNumVertices);
     std::vector<float> invMass(inNumVertices);
@@ -277,14 +257,6 @@ void BoxShape::CollideSoftBodyVertices(Mat44Arg inCenterOfMassTransform,
     std::vector<float> largestPenetration(inNumVertices, -1e9f);
     std::vector<int> collidingShapeIndexArr(inNumVertices, -1);
     
-    // Fill arrays from the soft body vertex iterator.
-    //for (uint i = 0; i < inNumVertices; ++i)
-    //{
-    //    const auto &vertex = inVertices[i];
-    //    Vec3 pos = vertex.GetPosition();
-    //    positions[i] = make_float3(pos.GetX(), pos.GetY(), pos.GetZ());
-    //    invMass[i] = vertex.GetInvMass();
-    //}
 	int i = 0;
 	for (CollideSoftBodyVertexIterator v = inVertices, end = inVertices + inNumVertices; v != end; ++v, ++i)
 	{
@@ -296,16 +268,13 @@ void BoxShape::CollideSoftBodyVertices(Mat44Arg inCenterOfMassTransform,
     // Convert transformation matrix.
     Mat44 mat = inCenterOfMassTransform.ToMat44();
     float hMat[16];
-    for (int i = 0; i < 4; ++i)
+    for (int i = 0; i < 4; ++i) {
         for (int j = 0; j < 4; ++j)
         {
             hMat[i * 4 + j] = mat(i, j);
-            // Optionally print each element:
-            // printf("hMat[%d] = %f\n", i * 4 + j, hMat[i * 4 + j]);
         }
-    
+	}
     float hHalfExtent[3] = { half_extent.GetX(), half_extent.GetY(), half_extent.GetZ() };
-    printf("Matrix and half extent prepared\n");
     
     // Call CUDA kernel launcher.
     LaunchCollideSoftBodyVerticesKernelCUDA(
