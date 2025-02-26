@@ -13,6 +13,8 @@ set(JOLT_PHYSICS_ROOT ${PHYSICS_REPO_ROOT}/Jolt)
 set(JOLT_PHYSICS_CUDA_FILES
     ${JOLT_PHYSICS_ROOT}/Cuda/Hello.cu
 	${JOLT_PHYSICS_ROOT}/Cuda/Hello.h
+	${JOLT_PHYSICS_ROOT}/Cuda/CollideSoftBodyVertices.cu
+	${JOLT_PHYSICS_ROOT}/Cuda/CollideSoftBodyVertices.h
 )
 
 # Source files

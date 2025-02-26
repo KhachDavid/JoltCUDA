@@ -59,6 +59,12 @@ public:
 		return *this;
 	}
 
+	// Return an iterator offset by inIndex (for random access)
+	CollideSoftBodyVertexIterator operator[](int inIndex) const
+	{
+		return *this + inIndex;
+	}
+
 	/// Add an offset
 	/// Note: Only used to determine end iterator, so we only set position.
 	CollideSoftBodyVertexIterator	operator + (int inOffset) const

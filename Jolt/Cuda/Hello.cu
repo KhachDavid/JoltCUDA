@@ -3,7 +3,7 @@
 
 // CUDA Kernel to print "Hello, World!" on GPU
 __global__ void HelloWorldKernel() {
-    printf("Hello, World from CUDA! Thread ID: %d\n", threadIdx.x);
+    printf("Hello, hi from CUDA! Thread ID: %d\n", threadIdx.x);
 }
 
 // Function to launch the kernel
