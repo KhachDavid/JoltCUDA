@@ -84,6 +84,12 @@ public:
 		return *mInvMass;
 	}
 
+	float 							GetLargestPenetration() const 
+	{
+		
+		return *mLargestPenetration;
+	}
+
 	/// Update penetration of the current vertex
 	/// @return Returns true if the vertex has the largest penetration so far, this means you need to follow up by calling SetCollision
 	bool							UpdatePenetration(float inLargestPenetration) const

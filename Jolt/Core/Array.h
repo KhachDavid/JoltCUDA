@@ -11,6 +11,11 @@
 
 JPH_SUPPRESS_WARNINGS_STD_BEGIN
 #include <vector>
+#include <iostream>
+#include <cstdio>
+#include <cstdlib>
+
+#include <execinfo.h>
 JPH_SUPPRESS_WARNINGS_STD_END
 
 JPH_NAMESPACE_BEGIN
@@ -23,6 +28,10 @@ JPH_NAMESPACE_END
 
 JPH_NAMESPACE_BEGIN
 
+
+
+
+    
 /// Simple replacement for std::vector
 ///
 /// Major differences:
@@ -454,8 +463,31 @@ public:
 	/// Access element
 	inline T &				operator [] (size_type inIdx)
 	{
-		JPH_ASSERT(inIdx < mSize);
-		return mElements[inIdx];
+		if (inIdx >= mSize)
+		{
+			//"Array index out of bounds!\n";
+			//"Requested Index: " << inIdx << "\n";
+			//"Array Size: " << mSize << "\n";
+			//"Array Capacity: " << mCapacity << "\n";
+			//"Memory Address: " << static_cast<void*>(mElements) << "\n";
+			printf("Array index out of bounds!\n");
+			printf("Requested Index: %zu\n", inIdx);
+			printf("Array Size: %zu\n", mSize);
+			printf("Array Capacity: %zu\n", mCapacity);
+			printf("Memory Address: %p\n", static_cast<void*>(mElements));
+			printf("Location: File %s, Line %d\n", __FILE__, __LINE__);
+			
+	
+        
+printf("Stack trace:\n");
+for (size_t i = 0; i < size; i++)
+{
+    printf("%zu: %s\n", i, symbols[i]);
+}
+free(symbols);
+			JPH_ASSERT(inIdx < mSize);
+		}
+    	return mElements[inIdx];
 	}
 
 	inline const T &		operator [] (size_type inIdx) const

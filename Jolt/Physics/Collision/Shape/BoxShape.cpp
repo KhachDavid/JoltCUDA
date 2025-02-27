@@ -256,15 +256,19 @@ void BoxShape::CollideSoftBodyVertices(Mat44Arg inCenterOfMassTransform,
     std::vector<float3> collisionPlane(inNumVertices);
     std::vector<float> largestPenetration(inNumVertices, -1e9f);
     std::vector<int> collidingShapeIndexArr(inNumVertices, -1);
-    
-	int i = 0;
+    float* largestPenPtr = largestPenetration.data(); // Use .data() to get a pointer to the vector's internal array
+	std::vector<float>::size_type i = 0;
 	for (CollideSoftBodyVertexIterator v = inVertices, end = inVertices + inNumVertices; v != end; ++v, ++i)
 	{
 		Vec3 pos = v.GetPosition();
 		positions[i] = make_float3(pos.GetX(), pos.GetY(), pos.GetZ());
 		invMass[i] = v.GetInvMass();
+		*(largestPenPtr + i) = v.GetLargestPenetration();  
 	}
-    
+
+
+	// update the largest penetration
+	
     // Convert transformation matrix.
     Mat44 mat = inCenterOfMassTransform.ToMat44();
     float hMat[16];
@@ -306,6 +310,7 @@ void BoxShape::CollideSoftBodyVertices(Mat44Arg inCenterOfMassTransform,
              Vec3 point = normal * half_extent;  // contact point (example)
              Plane collision = Plane::sFromPointAndNormal(point, normal);
              collision = collision.GetTransformed(inCenterOfMassTransform);
+			 v.UpdatePenetration(largestPenetration[idx]);
              // Use the iterator to update the vertex collision.
              v.SetCollision(collision, collidingShapeIndexArr[idx]);
         }
