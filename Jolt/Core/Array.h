@@ -476,16 +476,6 @@ public:
 			printf("Array Capacity: %zu\n", mCapacity);
 			printf("Memory Address: %p\n", static_cast<void*>(mElements));
 			printf("Location: File %s, Line %d\n", __FILE__, __LINE__);
-			
-	
-        
-printf("Stack trace:\n");
-for (size_t i = 0; i < size; i++)
-{
-    printf("%zu: %s\n", i, symbols[i]);
-}
-free(symbols);
-			JPH_ASSERT(inIdx < mSize);
 		}
     	return mElements[inIdx];
 	}

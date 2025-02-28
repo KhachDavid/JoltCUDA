@@ -1,0 +1,12 @@
+# Hashes of file build rules.
+b7777dec133c09d2a0cad86b15ef3e16 /home/egeyilmaz/JoltCUDA/Assets/Shaders/VK/FontPixelShader.frag.spv
+7d642220c9743d582d878903105805fd /home/egeyilmaz/JoltCUDA/Assets/Shaders/VK/FontVertexShader.vert.spv
+beaa156b5241bb0a740eb374ff8953a0 /home/egeyilmaz/JoltCUDA/Assets/Shaders/VK/LinePixelShader.frag.spv
+cb6f41bc5e97a30f3c216c84635efb98 /home/egeyilmaz/JoltCUDA/Assets/Shaders/VK/LineVertexShader.vert.spv
+d6a2b7e1ee55c445c67d22890b23e257 /home/egeyilmaz/JoltCUDA/Assets/Shaders/VK/TriangleDepthPixelShader.frag.spv
+5ab5522fad5a8acec42147a671f24661 /home/egeyilmaz/JoltCUDA/Assets/Shaders/VK/TriangleDepthVertexShader.vert.spv
+997047ec980bceab83c005c8ead0c54b /home/egeyilmaz/JoltCUDA/Assets/Shaders/VK/TrianglePixelShader.frag.spv
+f579f894412efcf9f87a6d7c3cdda677 /home/egeyilmaz/JoltCUDA/Assets/Shaders/VK/TriangleVertexShader.vert.spv
+b396917e20c20d781f605731f16b7119 /home/egeyilmaz/JoltCUDA/Assets/Shaders/VK/UIPixelShader.frag.spv
+fa9e241724503ee1f6e18820738c6313 /home/egeyilmaz/JoltCUDA/Assets/Shaders/VK/UIPixelShaderUntextured.frag.spv
+0d1d7cd198058dc4b46f3256bc6a2314 /home/egeyilmaz/JoltCUDA/Assets/Shaders/VK/UIVertexShader.vert.spv

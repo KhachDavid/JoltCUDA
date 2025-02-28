@@ -256,21 +256,22 @@ void BoxShape::CollideSoftBodyVertices(Mat44Arg inCenterOfMassTransform,
     std::vector<float3> collisionPlane(inNumVertices);
     std::vector<float> largestPenetration(inNumVertices, -1e9f);
     std::vector<int> collidingShapeIndexArr(inNumVertices, -1);
-    float* largestPenPtr = largestPenetration.data(); // Use .data() to get a pointer to the vector's internal array
-	std::vector<float>::size_type i = 0;
+	std::vector<float3> contactsAndPoints(inNumVertices);
+    
+	int i = 0;
 	for (CollideSoftBodyVertexIterator v = inVertices, end = inVertices + inNumVertices; v != end; ++v, ++i)
 	{
 		Vec3 pos = v.GetPosition();
 		positions[i] = make_float3(pos.GetX(), pos.GetY(), pos.GetZ());
 		invMass[i] = v.GetInvMass();
-		*(largestPenPtr + i) = v.GetLargestPenetration();  
+		largestPenetration[i] = v.GetLargestPenetration();  
 	}
 
 
 	// update the largest penetration
 	
     // Convert transformation matrix.
-    Mat44 mat = inCenterOfMassTransform.ToMat44();
+    Mat44 mat = inCenterOfMassTransform.InversedRotationTranslation();
     float hMat[16];
     for (int i = 0; i < 4; ++i) {
         for (int j = 0; j < 4; ++j)
@@ -307,13 +308,14 @@ void BoxShape::CollideSoftBodyVertices(Mat44Arg inCenterOfMassTransform,
         if (collidingShapeIndexArr[idx] != -1)
         {
              Vec3 normal(collisionPlane[idx].x, collisionPlane[idx].y, collisionPlane[idx].z);
-             Vec3 point = normal * half_extent;  // contact point (example)
+             Vec3 point(outPositions[idx].x, outPositions[idx].y, outPositions[idx].z);
              Plane collision = Plane::sFromPointAndNormal(point, normal);
              collision = collision.GetTransformed(inCenterOfMassTransform);
 			 v.UpdatePenetration(largestPenetration[idx]);
              // Use the iterator to update the vertex collision.
-             v.SetCollision(collision, collidingShapeIndexArr[idx]);
+             v.SetCollision(collision, inCollidingShapeIndex);
         }
+		printf("test");
     }
 	printf("Vertex collision data updated\n");
 }

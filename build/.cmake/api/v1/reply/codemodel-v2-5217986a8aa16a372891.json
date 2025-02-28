@@ -1,0 +1,106 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-d8b12a7d149dd001cf6e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "JoltPhysics",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "HelloWorld::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-HelloWorld-Debug-d60d1aac95a291ab251b.json",
+					"name" : "HelloWorld",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Jolt::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Jolt-Debug-f4fb21c787ca0de93d5b.json",
+					"name" : "Jolt",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "PerformanceTest::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-PerformanceTest-Debug-06c2075ade982accc62b.json",
+					"name" : "PerformanceTest",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Samples::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Samples-Debug-1a01ebe070d3edc5d443.json",
+					"name" : "Samples",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "TestFramework::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-TestFramework-Debug-2ed3482ba33585e2b42d.json",
+					"name" : "TestFramework",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "UnitTests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-UnitTests-Debug-9fd5b9e92eaf7b085db7.json",
+					"name" : "UnitTests",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/egeyilmaz/JoltCUDA/build",
+		"source" : "/home/egeyilmaz/JoltCUDA/Build"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

@@ -302,7 +302,8 @@ if (XCODE)
 endif()
 
 enable_language(CUDA)
-
+find_package(CUDA REQUIRED)
+include_directories(${CUDA_INCLUDE_DIRS})
 
 # Install Jolt library and includes
 if (ENABLE_INSTALL)
