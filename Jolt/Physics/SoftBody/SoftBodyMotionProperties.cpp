@@ -1010,6 +1010,7 @@ SoftBodyMotionProperties::EStatus SoftBodyMotionProperties::ParallelApplyConstra
 
 SoftBodyMotionProperties::EStatus SoftBodyMotionProperties::ParallelUpdate(SoftBodyUpdateContext &ioContext, const PhysicsSettings &inPhysicsSettings)
 {
+	
 	switch (ioContext.mState.load(memory_order_relaxed))
 	{
 	case SoftBodyUpdateContext::EState::DetermineCollisionPlanes:

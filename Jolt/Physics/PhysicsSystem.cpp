@@ -2517,7 +2517,9 @@ void PhysicsSystem::JobSoftBodyPrepare(PhysicsUpdateContext *ioContext, PhysicsU
 	ioContext->mSoftBodyToCollide.store(0, memory_order_release);
 
 	// Determine number of jobs to spawn
-	int num_soft_body_jobs = ioContext->GetMaxConcurrency();
+	//int num_soft_body_jobs = ioContext->GetMaxConcurrency(); -- CHANGED by Ege
+	int num_soft_body_jobs = 1;
+
 
 	// Create finalize job
 	ioStep->mSoftBodyFinalize = ioContext->mJobSystem->CreateJob("SoftBodyFinalize", cColorSoftBodyFinalize, [ioContext, ioStep]()

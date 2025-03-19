@@ -243,11 +243,11 @@ void BoxShape::CollideSoftBodyVertices(Mat44Arg inCenterOfMassTransform,
                                          uint inNumVertices, 
                                          int inCollidingShapeIndex) const
 {
-    printf("Launch Kernel\n");
+    //printf("Launch Kernel\n");
     
     // Compute half extents.
     Vec3 half_extent = inScale.Abs() * mHalfExtent;
-    printf("Half extent computed: (%f, %f, %f)\n", half_extent.GetX(), half_extent.GetY(), half_extent.GetZ());
+    //printf("Half extent computed: (%f, %f, %f)\n", half_extent.GetX(), half_extent.GetY(), half_extent.GetZ());
     
     // Prepare host arrays for vertex data.
     std::vector<float3> positions(inNumVertices);
@@ -295,7 +295,7 @@ void BoxShape::CollideSoftBodyVertices(Mat44Arg inCenterOfMassTransform,
          inCollidingShapeIndex
     );
     
-    printf("Kernel Launched\n");
+    //printf("Kernel Launched\n");
     
     // Update vertex collision data based on results from the kernel.
 	// use the same CollideSoftBodyVertexIterator to update the vertices
@@ -315,9 +315,9 @@ void BoxShape::CollideSoftBodyVertices(Mat44Arg inCenterOfMassTransform,
              // Use the iterator to update the vertex collision.
              v.SetCollision(collision, inCollidingShapeIndex);
         }
-		printf("test");
+		//printf("test");
     }
-	printf("Vertex collision data updated\n");
+	//printf("Vertex collision data updated\n");
 }
 //void BoxShape::CollideSoftBodyVertices(Mat44Arg inCenterOfMassTransform, Vec3Arg inScale, const CollideSoftBodyVertexIterator &inVertices, uint inNumVertices, int inCollidingShapeIndex) const
 //{

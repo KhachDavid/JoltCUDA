@@ -113,7 +113,7 @@ int main(int argc, char** argv)
 			else if (strcmp(arg + 3, "ConvexVsMesh") == 0)
 				scene = unique_ptr<PerformanceTestScene>(new ConvexVsMeshScene);
 			else if (strcmp(arg + 3, "Pyramid") == 0)
-				scene = unique_ptr<PerformanceTestScene>(new PyramidScene);
+				scene = unique_ptr<PerformanceTestScene>(new SoftBodyScene);
 			else if (strcmp(arg + 3, "LargeMesh") == 0)
 				scene = unique_ptr<PerformanceTestScene>(new LargeMeshScene);
 			else

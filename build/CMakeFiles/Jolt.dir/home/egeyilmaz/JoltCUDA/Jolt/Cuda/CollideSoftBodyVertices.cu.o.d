@@ -184,6 +184,4 @@ CMakeFiles/Jolt.dir/home/egeyilmaz/JoltCUDA/Jolt/Cuda/CollideSoftBodyVertices.cu
     /usr/local/cuda/include/device_launch_parameters.h \
     /usr/include/c++/13/utility \
     /usr/include/c++/13/bits/stl_relops.h \
-    /usr/include/c++/13/initializer_list \
-    /home/egeyilmaz/JoltCUDA/Jolt/Cuda/CudaMath.h \
-    /home/egeyilmaz/JoltCUDA/Jolt/Cuda/CollideSoftBodyVertices.h
+    /usr/include/c++/13/initializer_list
